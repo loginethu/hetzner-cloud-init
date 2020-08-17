@@ -9,6 +9,7 @@ To use this, just add this little YAML as cloud init config in the node template
 
 * the Hetzner Cloud API token (required)
 * a comma separated list of IPs that you want to whitelist in the firewall (required)
+* a comma separated list of PORTs that you want to whitelist in the firewall (required)
 * the `--floating-ips` flag if you also want to configure floating IPs (optional)
 
 NOTES: 
@@ -24,5 +25,5 @@ NOTES:
 locale: en_GB.UTF-8
 
 runcmd:
-  - "curl -s https://raw.githubusercontent.com/vitobotta/hetzner-cloud-init/master/setup.sh | bash -s -- --hcloud-token <TOKEN> --whitelisted-ips <WHITELIST> --floating-ips"
+  - "curl -s https://raw.githubusercontent.com/loginethu/hetzner-cloud-init/master/setup.sh | bash -s -- --hcloud-token <TOKEN> --ports 22,80,443 --whitelisted-ips <WHITELIST> --floating-ips"
 ```

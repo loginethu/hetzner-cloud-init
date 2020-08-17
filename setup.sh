@@ -15,6 +15,11 @@ case $key in
     shift
     shift
   ;;
+  --ports)
+    PORTS_S="$2"
+    shift
+    shift
+  ;;
   --floating-ips)
     FLOATING_IPS="--floating-ips"
     shift
@@ -33,7 +38,7 @@ sed -i 's/[#]*PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/s
 
 systemctl restart sshd
 
-curl -o /usr/local/sbin/apt-get https://raw.githubusercontent.com/vitobotta/hetzner-cloud-init/master/apt-get
+curl -o /usr/local/sbin/apt-get https://raw.githubusercontent.com/loginethu/hetzner-cloud-init/master/apt-get
 
 chmod +x /usr/local/sbin/apt-get
 
@@ -41,11 +46,11 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y jq ufw fail2ban
 
-curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/vitobotta/hetzner-cloud-init/master/update-config.sh
+curl -o /usr/local/bin/update-config.sh https://raw.githubusercontent.com/loginethu/hetzner-cloud-init/master/update-config.sh
 
 chmod +x /usr/local/bin/update-config.sh
 
-ufw allow proto tcp from any to any port 22,80,443
+ufw allow proto tcp from any to any port $PORTS_S
 
 ufw -f enable
 
